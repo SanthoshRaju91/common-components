@@ -1,17 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import { ThemeProvider } from 'styled-components';
-import PropTypes from 'prop-types';
-import cardStyle from './styles';
-import Spinner from '../Spinner';
+import React from "react";
+import styled from "styled-components";
+import { ThemeProvider } from "styled-components";
+import PropTypes from "prop-types";
+// import cardStyle from './styles';
+import Spinner from "../Spinner";
+import { color } from "../../theme";
+
+const { cardStyle } = color;
 
 const { shape, string } = PropTypes;
 
 const StyledCard = styled.div`
-  background-color: ${props => props.theme.background || '#fafafa'} ;
+  background-color: ${props => props.theme.background || "#fafafa"};
   position: relative;
-  border: 1px solid rgba(0,0,0,.125);
-  border-radius: .25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
 `;
 
 const StyledCardLabel = styled.div`
@@ -23,7 +26,8 @@ const StyledCardLabel = styled.div`
   font-weight: 700;
   border-radius: 4px;
   color: #fff;
-  background: ${props => cardStyle[props.theme.type].label.background || '#00a9e5'};
+  background: ${props =>
+    cardStyle[props.theme.type].label.background || "#00a9e5"};
   box-shadow: 1px 3px 15px 1px rgba(0, 0, 0, 0.2);
 `;
 
@@ -36,31 +40,29 @@ const StyledCardBody = styled.div`
   overflow: auto;
 `;
 
-const Card = ({ theme,cardLabel, children, isSpinnerShown }) => (
+const Card = ({ theme, cardLabel, children, isSpinnerShown }) => (
   <ThemeProvider theme={theme}>
     <StyledCard className={theme.container}>
-     { cardLabel &&
+      {cardLabel && (
         <StyledCardLabel className={theme.cardLabel}>
-          { cardLabel }
-        </StyledCardLabel> }
-        {isSpinnerShown ? 
-        (<Spinner theme={theme}/>) : 
-        (<StyledCardBody className={theme.cardBody}>
-          { children }
-         </StyledCardBody>
-        )
-        }
-        
+          {cardLabel}
+        </StyledCardLabel>
+      )}
+      {isSpinnerShown ? (
+        <Spinner theme={theme} />
+      ) : (
+        <StyledCardBody className={theme.cardBody}>{children}</StyledCardBody>
+      )}
     </StyledCard>
-    </ThemeProvider>
+  </ThemeProvider>
 );
 
 Card.defaultProps = {
   theme: {
-    type: 'primary'
+    type: "primary"
   },
   isSpinnerShown: false
-}
+};
 
 Card.propTypes = {
   theme: shape({
@@ -68,6 +70,6 @@ Card.propTypes = {
     cardBody: string,
     cardLabel: string
   })
-}
+};
 
 export default Card;

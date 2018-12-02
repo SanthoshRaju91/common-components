@@ -20,6 +20,7 @@ import Timer from "../components/Timer";
 import Icon from "../components/Icon";
 import TabbedButtons from "../components/TabbedButtons";
 import FileUpload from "../components/FileUpload";
+import Modal from "../components/Modal";
 
 import { color, misc } from "../theme";
 
@@ -78,7 +79,8 @@ class ShowCase extends Component {
     super(props);
 
     this.state = {
-      dataSet: generateDataSet()
+      dataSet: generateDataSet(),
+      isModalShown: false
     };
   }
 
@@ -97,7 +99,7 @@ class ShowCase extends Component {
   };
 
   render() {
-    const { dataSet } = this.state;
+    const { dataSet, isModalShown } = this.state;
 
     return (
       <div>
@@ -312,6 +314,22 @@ class ShowCase extends Component {
             fileDropped={this.fileDropped}
             fileRemoved={this.fileRemoved}
           />
+        </Block>
+
+        <Block id="Modal">
+          <Button
+            onClick={() => {
+              this.setState({ isModalShown: true });
+            }}
+          >
+            Open Modal Dialog
+          </Button>
+          <Modal isModalShown={isModalShown}>
+            <Modal.Header>Modal Dialog</Modal.Header>
+            <Modal.Content>
+              <h5>This is the modal component</h5>
+            </Modal.Content>
+          </Modal>
         </Block>
       </div>
     );
